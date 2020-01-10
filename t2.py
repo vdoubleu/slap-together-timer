@@ -4,6 +4,9 @@ import keyboard
 from matplotlib import pyplot as plt
 from random import seed
 from random import choice
+import numpy as np
+from numpy.polynomial.polynomial import polyfit
+
 
 def print_scramble(possible_moves):
     for x in range(0, 15):
@@ -46,6 +49,11 @@ def main():
 
             elif keyboard.is_pressed('t'):
                 plt.plot(times)
+                x = np.array(list(range(0, len(times))))
+                d, c, b, a = polyfit(x, np.array(times), 3)
+                plt.plot(x, a*(x**3) + b*(x**2) + c*x + d, "-")
+                
+                
                 plt.show()
                 print_scramble(possible_moves)
                 print("press space to start, t for table, n to remove last one and e for exit")
